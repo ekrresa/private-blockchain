@@ -141,7 +141,9 @@ class Blockchain {
       );
 
       if (differenceInMinutes > 5) {
-        reject("Ownership verification message should not exceed 5 minutes");
+        return reject(
+          "Ownership verification message should not exceed 5 minutes"
+        );
       }
 
       const messageVerified = bitcoinMessage.verify(
@@ -213,7 +215,7 @@ class Blockchain {
 
       const data = blockDataMap
         .filter((data) => data && data.owner === address)
-        .map((data) => data.star);
+        .map((data) => ({ owner: data.owner, star: data.star }));
 
       resolve(data);
     });
